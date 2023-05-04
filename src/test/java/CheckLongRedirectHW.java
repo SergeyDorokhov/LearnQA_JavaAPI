@@ -7,6 +7,7 @@ public class CheckLongRedirectHW {
     public void testRedirect() {
         Response response;
         int statusCode = 301;
+        int count = 0;
         String location = "https://playground.learnqa.ru/api/long_redirect";
         while (statusCode == 301) {
             response = RestAssured
@@ -17,8 +18,10 @@ public class CheckLongRedirectHW {
                     .andReturn();
             statusCode = response.getStatusCode();
             location = response.getHeader("Location");
+            count++;
         }
         System.out.println(statusCode);
         System.out.println(location);
+        System.out.println("итоговое количество редиректов: " + count);
     }
 }
