@@ -6,6 +6,8 @@ import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class HelloWorld {
     @Test
     public void testHello() {
@@ -18,5 +20,15 @@ public class HelloWorld {
                 .jsonPath();
         String answer = response.get("answer");
         System.out.println(answer);
+        assertEquals("Hello, John", answer, "Unexpected");
+    }
+    @Test
+    public void testHelloSomeone() {
+        JsonPath response = RestAssured
+                .get("https://playground.learnqa.ru/api/hello")
+                .jsonPath();
+        String answer = response.get("answer");
+        System.out.println(answer);
+        assertEquals("Hello, someone", answer, "Unexpected");
     }
 }
