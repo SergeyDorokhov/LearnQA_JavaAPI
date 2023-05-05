@@ -1,9 +1,9 @@
 package tests;
 
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lib.Assertion;
 import lib.BaseTestCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserAuthTest extends BaseTestCase {
     String cookie;
@@ -43,13 +40,13 @@ public class UserAuthTest extends BaseTestCase {
 //        assertTrue(this.cookies.containsKey("auth_sid"), "No auth_sid");
 //        assertTrue(headers.hasHeaderWithName("x-csrf-token"), "No token");
 //        assertTrue(response.jsonPath().getInt("user_id") > 0, "Not > 0");
-        JsonPath response1 = RestAssured
+        Response response1 = RestAssured
                 .given()
                 .header("x-csrf-token", this.header)
                 .cookie("auth_sid", this.cookie)
                 .get("https://playground.learnqa.ru/api/user/auth")
-                .jsonPath();
-        assertTrue(response1.getInt("user_id") > 0, "unexpected");
+                .andReturn();
+        Assertion.asserJsonByName(response1, "user_id", this.userIdOnAuth);
     }
 
     @ParameterizedTest
@@ -64,7 +61,7 @@ public class UserAuthTest extends BaseTestCase {
         } else {
             throw new IllegalArgumentException("Condition is known");
         }
-        JsonPath response1 = spec.get().jsonPath();
-        assertEquals(0, response1.getInt("user_id"), "user_id should be nul");
+        Response response1 = spec.get().andReturn();
+        Assertion.asserJsonByName(response1, "user_id", 0);
     }
 }
