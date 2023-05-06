@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BaseTestCase {
     protected String getHeader(Response response, String name) {
         Headers headers = response.getHeaders();
-        assertTrue(headers.hasHeaderWithName(name), "No header");
+        assertTrue(headers.hasHeaderWithName(name), "No header with name: " + name);
         return headers.getValue(name);
     }
 
     protected String getCookie(Response response, String name) {
         Map<String, String> cookies = response.getCookies();
-        assertTrue(cookies.containsKey(name), "No cookie");
+        assertTrue(cookies.containsKey(name), "No cookie with name: " + name);
         return cookies.get(name);
     }
 

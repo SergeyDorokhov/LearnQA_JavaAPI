@@ -36,17 +36,13 @@ public class UserAuthTest extends BaseTestCase {
 
     @Test
     public void testAuthUser() {
-        //assertEquals(200, response.getStatusCode(), "Unexpected");
-//        assertTrue(this.cookies.containsKey("auth_sid"), "No auth_sid");
-//        assertTrue(headers.hasHeaderWithName("x-csrf-token"), "No token");
-//        assertTrue(response.jsonPath().getInt("user_id") > 0, "Not > 0");
-        Response response1 = RestAssured
+        Response response = RestAssured
                 .given()
                 .header("x-csrf-token", this.header)
                 .cookie("auth_sid", this.cookie)
                 .get("https://playground.learnqa.ru/api/user/auth")
                 .andReturn();
-        Assertion.asserJsonByName(response1, "user_id", this.userIdOnAuth);
+        Assertion.asserJsonByName(response, "user_id", this.userIdOnAuth);
     }
 
     @ParameterizedTest

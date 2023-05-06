@@ -9,6 +9,6 @@ public class Assertion {
     public static void asserJsonByName(Response response, String name, int expectedValue) {
         response.then().assertThat().body("$", hasKey(name));
         int value = response.jsonPath().getInt(name);
-        assertEquals(expectedValue, value, "no expected value");
+        assertEquals(expectedValue, value, "No expected value: " + value);
     }
 }
