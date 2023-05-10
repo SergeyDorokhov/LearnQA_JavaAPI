@@ -11,4 +11,12 @@ public class Assertion {
         int value = response.jsonPath().getInt(name);
         assertEquals(expectedValue, value, "No expected value: " + value);
     }
+
+    public static void asserResponseTextEquals(Response response, String expectedText) {
+        assertEquals(expectedText, response.asString(), "No expected text: " + expectedText);
+    }
+
+    public static void asserResponseCodeEquals(Response response, int expectedCode) {
+        assertEquals(expectedCode, response.statusCode(), "No expected code: " + expectedCode);
+    }
 }
