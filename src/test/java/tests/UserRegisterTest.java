@@ -46,6 +46,6 @@ public class UserRegisterTest extends BaseTestCase {
                 .post("https://playground.learnqa.ru/api/user/")
                 .andReturn();
         Assertion.assertResponseCodeEquals(response, 200);
-        Assertion.assertJsonHasKey(response, "id");
+        Assertion.assertJsonHasField(response, "id");
     }
 }
