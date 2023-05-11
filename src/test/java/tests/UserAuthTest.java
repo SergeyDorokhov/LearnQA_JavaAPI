@@ -42,7 +42,7 @@ public class UserAuthTest extends BaseTestCase {
                 .cookie("auth_sid", this.cookie)
                 .get("https://playground.learnqa.ru/api/user/auth")
                 .andReturn();
-        Assertion.asserJsonByName(response, "user_id", this.userIdOnAuth);
+        Assertion.assertJsonByName(response, "user_id", this.userIdOnAuth);
     }
 
     @ParameterizedTest
@@ -58,6 +58,6 @@ public class UserAuthTest extends BaseTestCase {
             throw new IllegalArgumentException("Condition is known");
         }
         Response response1 = spec.get().andReturn();
-        Assertion.asserJsonByName(response1, "user_id", 0);
+        Assertion.assertJsonByName(response1, "user_id", 0);
     }
 }
