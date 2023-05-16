@@ -13,6 +13,12 @@ public class Assertion {
         assertEquals(expectedValue, value, "No expected value: " + value);
     }
 
+    public static void assertJsonByName(Response response, String name, String expectedValue) {
+        response.then().assertThat().body("$", hasKey(name));
+        String value = response.jsonPath().getString(name);
+        assertEquals(expectedValue, value, "No expected value: " + value);
+    }
+
     public static void assertResponseTextEquals(Response response, String expectedText) {
         assertEquals(expectedText, response.asString(), "No expected text: " + expectedText);
     }
